@@ -1,0 +1,71 @@
+﻿@font-face {
+    font-family: 'Ubuntu';
+    /* Antes de descargar el archivo, le decimos al buscador
+  que intente buscar en local la fuente con nombre
+  Cabin, Cabin Regular o Cabin-Regular */
+    src: url('../fonts/Ubuntu-B.ttf');
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-color: #009ADA;
+    color: #fff;
+    font-family: 'Ubuntu';
+}
+
+.mainContent {
+    font-family: 'Ubuntu';
+    background-color: #FFF;
+    color: #000;
+    font-family: 'Arial';
+}
+
+h4 {
+    font-weight: bolder;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.borderDiv {
+    /*border: 2px solid #0c9bee;*/
+    border: 2px solid #FFF;
+    border-radius: 3%;
+    padding: 5px 10px 5px 10px;
+}
+
+.modal-sm {
+    width: 20% !important;
+}
+
+.modal-md {
+    width: 50% !important;
+}
+
+.modal-lg {
+    width: 70% !important;
+}
+
+.input-block-level {
+    display: block;
+    width: 100%;
+    min-height: 28px; /*Make inputs at least the height of their button counterpart */
+}

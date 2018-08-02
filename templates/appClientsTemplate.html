@@ -1,0 +1,74 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
+                    <table id="tableUsers" class="table table-bordered table-striped table-hover table-responsive">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="vertical-align:central">Item</th>
+                                <th class="text-center" style="vertical-align:central">Id App</th>
+                                <th class="text-center" style="vertical-align:central">Name</th>
+                                <th class="text-center" style="vertical-align:central">Refresh Token(Seg)</th>
+                                <th class="text-center" style="vertical-align:central">TV Token(Seg)</th>
+                                <th class="text-center" style="vertical-align:central">TV Cod Auth(Seg)</th>
+                                <th class="text-center" style="vertical-align:central">Orig. Permit</th>
+                                <th class="text-center" style="vertical-align:central">Activo</th>
+                                <th class="text-center" style="vertical-align:central">Permite Refrescar Token</th>
+                                <th class="text-center" style="vertical-align:central">Permite Flujo Codigo</th>
+                                <th class="text-center" style="vertical-align:central">Permite Flujo Contraseña</th>
+                                <th class="text-center" style="vertical-align:central">URL Externo</th>
+                                <th class="text-center" style="vertical-align:central">Requiere Status de Codigo</th>
+                                <th class="col-md-2"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="client in lstClients">
+                                <td class="text-center">{{$index + 1}}</td>
+                                <td>{{client.Id}}</td>
+                                <td class="text-center">{{client.Name}}</td>
+                                <td class="text-center">{{client.RefreshTokenLifeTime}}</td>
+                                <td class="text-center">{{client.AccessTokeLifeTime}}</td>
+                                <td class="text-center">{{client.AuthCodeLifeTime}}</td>
+                                <td class="text-center">{{client.AllowedOrigin}}</td>
+                                <td class="text-center">{{client.Active}}</td>
+                                <td class="text-center">{{client.AllowRefreshToken}}</td>
+                                <td class="text-center">{{client.AllowFlowCode}}</td>
+                                <td class="text-center">{{client.AllowFlowPassword}}</td>
+                                <td class="text-center">{{client.uriExternal}}</td>
+                                <td class="text-center">{{client.RequireStatusCode}}</td>
+                                <td class="text-center"><button id="editarApp" class="btn btn-success" ng-click="editarAppClients($index)" data-toggle="modal" data-target="#modalForms">Editar</button> <button id="borrarApp" class="btn btn-danger" ng-click="eliminarAppClients($index)">Borrar</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8 text-center">
+                    <button id="crearApp" class="btn btn-info" ng-click="crearAppClients()" data-toggle="modal" data-target="#modalForms">Crear Aplicación Cliente</button>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalForms" tabindex="-1" role="dialog" aria-labelledby="modalForms" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{modalTitle}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ng-include src="modalTemplate"></ng-include>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{modalButtonCancel}}</button>
+                <button type="button" class="btn btn-primary" ng-click="procesar()">{{modalButtonProcess}}</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+﻿@model SegurosMundial.Web.PaymentsServer.Models.KushkiDataPayment
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ProcessPayment</title>
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/kushki.css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10 borderDiv">
+                <h4 style="width:100%" align="center">RESUMEN DEL PAGO</h4>
+                <div class="row">
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <img src="~/Img/Logo_mundial_seguros.png" class="col-md-12 col-sm-12 col-xs-12" />
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                @Html.DisplayNameFor(model => model.commerceName)
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+                                @Html.DisplayFor(model => model.commerceName)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                @Html.DisplayNameFor(model => model.purchaseCode)
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+                                @Html.DisplayFor(model => model.purchaseCode)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                @Html.DisplayNameFor(model => model.description)
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+                                @Html.DisplayFor(model => model.description)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                @Html.DisplayNameFor(model => model.currency)
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+                                @Html.DisplayFor(model => model.currency)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                @Html.DisplayNameFor(model => model.ammount)
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+                                @ViewBag.CurrencyAmount
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-right">
+                                @Html.DisplayNameFor(model => model.paymentMethod)
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-6 text-left">
+                                @Html.DisplayFor(model => model.paymentMethod)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-3 col-xs-3">
+                        <img src="~/Img/pse.png" class="col-md-12 col-sm-12 col-xs-12" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col_md-12 col-sm-12 col-xs-12">
+                        <form id="kushki-pay-form" action="@ViewBag.controllerRequest" method="post">
+                            <input type="hidden" name="cart_id" value="123">
+                        </form>
+                        @Scripts.Render("~/bundles/jquery")
+                        @Scripts.Render("~/bundles/bootstrap")
+                        @Scripts.Render(ViewBag.KushkiLibraryBox)
+                        <script type="text/javascript">
+                var amount = new Object();
+                amount.subtotalIva = @Model.ammount;
+                amount.subtotalIva = amount.subtotalIva / 1.19;
+                amount.subtotalIva0 = 0;
+                amount.iva = amount.subtotalIva * 0.19;
+
+                amount.subtotalIva = Math.round(amount.subtotalIva);
+                amount.iva = Math.round(amount.iva);
+
+                var kushki = new KushkiCheckout({
+                    form: "kushki-pay-form",
+                    merchant_id: "@ViewBag.MerchantId",
+                    amount: amount,
+                    currency: "@Html.DisplayFor(model => model.currency)",
+                    is_subscription: false,
+                    payment_methods: ['@ViewBag.PaymentMethod'],
+                    callback_url: '@ViewBag.urlResponse'
+                });
+                        </script>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
+        </div>
+     </div>
+    </body>
+</html>

@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PruebaAuth</title>
+    <script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    @*<div id="login" style="display:block;">
+            <input type="email" id="email" placeholder="Ingrese su email" />
+            <input type="password" id="password" placeholder="Ingrese su password" />
+            <button type="button" id="enviar">Enviar</button>
+            <button type="button" id="loginWithGoogle">Loguearse con Google</button>
+        </div>
+        <div id="logout" style="display:none">
+            <button type="button" id="logoutBtn">Salir</button>
+        </div>*@
+    <h1>Welcome to My Awesome App</h1>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">Loading...</div>
+    <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                apiKey: "AIzaSyDajWGJNptevjYORuS9Bg0hpaZkvMYOm00",
+                authDomain: "adminpaymentserver.firebaseapp.com",
+                databaseURL: "https://adminpaymentserver.firebaseio.com",
+                projectId: "adminpaymentserver",
+                storageBucket: "adminpaymentserver.appspot.com",
+                messagingSenderId: "805902455100"
+            };
+            var firebaseApp = firebase.initializeApp(config);
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+            var uiConfig = {
+                callbacks: {
+                    signInSuccessWithAuthResult: function (authResult, redirectUrl) {
+                        // User successfully signed in.
+                        // Return type determines whether we continue the redirect automatically
+                        // or whether we leave that to developer to handle.
+                        return true;
+                    },
+                    uiShown: function () {
+                        // The widget is rendered.
+                        // Hide the loader.
+                        document.getElementById('loader').style.display = 'none';
+                    }
+                },
+                // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+                signInFlow: 'popup',
+                signInSuccessUrl: 'http://localhost:50730/Administrator',
+                signInOptions: [
+                    // Leave the lines as is for the providers you want to offer your users.
+                    {
+                        provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                        scopes: [
+                            'https://www.googleapis.com/auth/plus.login'
+                        ],
+                        customParameters: {
+                            // Forces account selection even when one account
+                            // is available.
+                            prompt: 'select_account'
+                        }
+                    },
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                ]
+            };
+
+            ui.start('#firebaseui-auth-container', uiConfig);
+
+
+        });
+
+    </script>
+</body>
+</html>

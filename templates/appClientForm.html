@@ -1,0 +1,130 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="row form-group" style="margin-left:10px;">
+            <div class="col-md-3">
+                <div class="row form-group">
+                    <label for="Name">Nombre de la Aplicación</label>
+                    <input type="text" class="form-control col-md-12" required ng-model="nAppClient.Name" id="Name" name="Name" placeholder="Nombre de la aplicación" />
+                </div>
+                <div class="row form-group">
+                    <input type="button" class="btn btn-info btn-lg col-md-12" value="Generar Id Cliente" ng-click="generateClientId()" ng-disabled="nAppClient.Id!==undefined" />
+                    <textarea class="col-md-12 form-control" rows="5" ng-model="nAppClient.Id" ng-disabled="nAppClient.Id!==undefined"></textarea>
+                </div>
+                <div class="row form-group">
+                    <input type="button" class="btn btn-info btn-lg col-md-12" value="Generar Secret Client" ng-click="generateSecret()" ng-disabled="nAppClient.Secret!==undefined" />
+                    <textarea class="col-md-12 form-control" rows="5" ng-model="nAppClient.Secret" ng-disabled="nAppClient.Secret!==undefined"></textarea>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-12">
+                        <strong>Parametros de OAuth</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-inline">
+                        <label for="bloqueado">Bloqueado</label>
+                        <input type="checkbox" id="bloqueado" name="bloqueado" ng-model="block"/>
+                        <label for="grant">Permite Grant OAuth Code Flow</label>
+                        <input type="checkbox" id="grant" name="grant" ng-model="nAppClient.AllowFlowCode" />
+                        <label for="credential">Permite Credential Flow</label>
+                        <input type="checkbox" id="credential" name="credential" ng-model="nAppClient.AllowFlowPassword"/>
+                        <label for="foreign">Requiere Foreign Key(CSRF)</label>
+                        <input type="checkbox" id="foreign" name="foreign" ng-model="nAppClient.RequireStatusCode" />
+                        <label for="refresh">Refresh Token</label>
+                        <input type="checkbox" id="refresh" name="refresh" ng-model="nAppClient.AllowRefreshToken" />
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-md-6">
+                        <label for="uriCallback">Uri Callback Auth Code</label>
+                        <textarea rows="3" class="col-lg-12 col-md-12 form-control" id="uriCallback" name="uriCallback" ng-model="nAppClient.uriExternal"></textarea>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="allowCors">Dominios Admitidos CORS</label>
+                        <textarea rows="3" class="col-lg-12 col-md-12 form-control" id="allowCors" name="allowCors" ng-model="nAppClient.AllowedOrigin"></textarea>
+                    </div>
+                </div>
+                <div class="row form-inline form-group">
+                    <div class="col-md-6">
+                        <strong>Tiempo Vigencia Access Token(Seg)</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" id="validAccessToken" name="validAccessToken" ng-model="nAppClient.AccessTokeLifeTime" />
+                    </div>
+                </div>
+                <div class="row form-inline form-group">
+                    <div class="col-md-6">
+                        <strong>Tiempo Vigencia Refresh Token(Seg)</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" id="validRefreshToken" name="validRefreshToken" ng-model="nAppClient.RefreshTokenLifeTime" />
+                    </div>
+                </div>
+                <div class="row form-inline form-group">
+                    <div class="col-md-6">
+                        <strong>Tiempo Vigencia Auth Code(Seg)</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" class="form-control" id="validAuthCode" name="validAuthCode" ng-model="nAppClient.AuthCodeLifeTime" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- public virtual string Secret { get; set; }
+
+        public virtual string Name { get; set; }
+        public virtual int ApplicationType { get; set; }
+        public virtual int? RefreshTokenLifeTime { get; set; }
+        public virtual int? AccessTokeLifeTime { get; set; }
+        public virtual int? AuthCodeLifeTime { get; set; }
+
+        public virtual string AllowedOrigin { get; set; }
+
+
+        public virtual TKey Id { get; set; }
+
+        public virtual bool Active { get { return Convert.ToBoolean(iActive); } set { iActive = Convert.ToInt32(value);  } }
+        public virtual int iActive { get; set; }
+
+
+        public virtual bool  AllowFlowCode {
+            get
+            {
+                return Convert.ToBoolean(iAllowFlowCode);
+            }
+            set {
+                iAllowFlowCode = Convert.ToInt32(value);
+            }
+        }
+
+
+        public virtual bool AllowFlowPassword
+        {
+            get
+            {
+                return Convert.ToBoolean(iAllowFlowPassword);
+            }
+            set
+            {
+                iAllowFlowPassword = Convert.ToInt32(value);
+            }
+        }
+
+
+        public virtual  int  iAllowFlowCode { get; set; }
+
+
+        public virtual int  iAllowFlowPassword { get; set; }
+
+        public virtual string uriExternal { get; set; }
+
+        public virtual int iRequireStatusCode { get; set; }
+
+        public virtual bool RequireStatusCode { get { return Convert.ToBoolean(iRequireStatusCode); } set { iRequireStatusCode = Convert.ToInt32(value); } }
+
+        public virtual int? iAllowRefreshToken { get; set; }
+
+        public virtual bool AllowRefreshToken-->

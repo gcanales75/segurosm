@@ -1,0 +1,162 @@
+﻿@model SegurosMundial.Web.PaymentsServer.Models.KushkiDataPayment
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ProcessPayment</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+    <body>
+        <div>
+            <h4>RESUMEN DEL PAGO</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.commerceName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.commerceName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.purchaseCode)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.purchaseCode)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.currency)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.currency)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.ammount)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.ammount)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.paymentMethod)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.paymentMethod)
+                </dd>
+            </dl>
+        </div>
+        @{
+            if (Model.paymentMethod == "Transferencia PSE")
+            {
+                @Scripts.Render("Scripts/angular.min.js");
+        <script>
+            var paymentKushki = angular.module("processPaymentKushki", []);
+            paymentKushki.controller("processPaymentController", function ($scope, $http) {
+                var controllerRequest = '@ViewBag.controllerRequest';
+                var $scope.infoPayment = new Object();
+                $scope.infoPayment.tipoPersona = "2";
+                $scope.infoPayment.tipoDoc = "";
+                $scope.infoPayment.amount = new Object();
+                $scope.infoPayment.amount.subtotalIva = @Model.ammount;
+                $scope.infoPayment.amount.subtotalIva = infoPayment.amount.subtotalIva/1.19;
+                $scope.infoPayment.amount.subtotalIva0 = 0;
+                $scope.infoPayment.amount.iva = infoPayment.amount.subtotalIva * 0.19;
+                $scope.infoPayment.amount.currency = '@Model.currency';
+                $scope.infoPayment.callbackUrl = '@ViewBag.urlResponse';
+                $scope.infoPayment.paymentDescription = '@Model.description';
+
+                        
+
+                $scope.procesarPagoPse = function () {
+                    var urlRequest = '@ViewBag.urlInitRequest';
+                    var dataRequest = JSON.stringify($scope.infoPayment);
+                    $http({
+                        url: urlRequest,
+                        method: 'post',
+                        data: dataRequest,
+                        headers: {
+                            'Public-Merchant-Id': '@ViewBag.MerchantId'
+                        }
+                    }).then(function (response) {
+                        var dataToken = response.data.dataToken;
+                        $http({
+                            url: controllerRequest,
+                            method: 'post',
+                            data: dataToken
+                        }).then(function (response) {
+                            alert('No se logro redireccionar desde el servidor');
+                        });
+                    }, function (error) {
+                        alert("Ha ocurrido un error al realizar la solicitud");
+                        console.log(error.message);
+                    });
+                };
+            });
+        </script>
+                List<SelectListItem> lstTipoPersona = new List<SelectListItem>();
+                lstTipoPersona.Add(new SelectListItem { Text = "Seleccione un Tipo de Persona", Value = "2", Selected = true });
+                lstTipoPersona.Add(new SelectListItem { Text = "Persona Natural", Value = "0" });
+                lstTipoPersona.Add(new SelectListItem { Text = "Persona Juridica", Value = "1" });
+
+                List<SelectListItem> lstTipoDoc = new List<SelectListItem>();
+                lstTipoDoc.Add(new SelectListItem { Text = "Seleccione su Tipo de Documento", Value = "", Selected = true });
+                lstTipoDoc.Add(new SelectListItem { Text = "Cédula de ciudadania", Value = "CC" });
+                lstTipoDoc.Add(new SelectListItem { Text = "Identificación tributaria", Value = "NIT" });
+                lstTipoDoc.Add(new SelectListItem { Text = "Cédula de extranjería", Value = "CE" });
+                lstTipoDoc.Add(new SelectListItem { Text = "Pasaporte", Value = "PP" });
+
+                <div ng-app="processPaymentKushki">
+                    <div ng-controller="processPaymentController">
+                        <div class="loading" ng-show="showLoading"></div>
+                        @Html.BeginForm("pseForm", "ProcessPayment", FormMethod.Post) {
+                        @Html.DropDownList("tipoPersona", lstTipoPersona, "Tipo de Persona", new { ng_model = "infoPayment.userType" });
+                        @Html.DropDownList("tipoDoc", lstTipoDoc, "Tipo de Documento", new { ng_model = "infoPayment.documentType" });
+                        @Html.TextBox("nroDoc", "", new { ng_model = "infoPayment.documentNumber", placeholder = "Nro. de Documento", type = "numeric" })
+                        @Html.ListBox("lstBanco", ViewBag.Banklst as List<SelectListItem>, new { ng_model = "infoPayment.bankId" });
+                        <input type="button" id="proccessPayment" ng-click="procesarPagoPse()" value="Pagar" />
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <form id="kushki-pay-form" action="confirm" method="post">
+                    <input type="hidden" name="cart_id" value="123">
+                </form>
+                @Scripts.Render("https://cdn-uat.kushkipagos.com/kushki-checkout.js")
+                <script type="text/javascript">
+                    var kushki = new KushkiCheckout({
+                        form: "kushki-pay-form",
+                        merchant_id: "@ViewBag.MerchantId",
+                        amount: "@Html.DisplayFor(model => model.ammount)",
+                        currency: "@Html.DisplayFor(model => model.currency)",
+                        is_subscription: false,
+                        payment_methods: ['@ViewBag.PaymentMethod']
+                    });
+                </script>
+            }
+        }
+    </body>
+</html>

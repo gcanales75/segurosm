@@ -1,0 +1,31 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="row" style="padding-top:20px;">
+        <div class="col-md-12">
+            <form id="kushki-pay-form" action="/ProcessPayment" method="post">
+                <input type="hidden" name="cart_id" value="123">
+            </form>
+        </div>
+    </div>
+    @Scripts.Render(ViewBag.urlLibKushki)
+    <script type="text/javascript">
+    var kushki = new KushkiCheckout({
+        form: "kushki-pay-form",
+        merchant_id: "@ViewBag.Merchant_id",
+        amount: @ViewBag.Ammount, // total amount
+        currency: @ViewBag.Currency, // Currency code, by default "USD"
+        is_subscription: false // True if it is a subscription (recurring payment); False, otherwise.
+    });
+    </script>
+</body>
+</html>

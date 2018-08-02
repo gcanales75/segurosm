@@ -1,0 +1,33 @@
+﻿@Styles.Render("~/Content/css")
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/Scripts/angular.min.js")
+@Scripts.Render(ViewBag.rootUrl + Url.Content("~/Scripts/appPayments.js"))
+<div ng-app="paymentsTest" class="container">
+    <div class="row">
+        <div class="col-lg-12" style="background-color: brown; color:aliceblue;" id="pruebaPayment">
+            Esto es una Prueba
+        </div>
+    </div>
+    <div class="row" ng-controller="paymentsController">
+        @{
+            @*if (User.IsInRole("rol-recaudos-tc"))
+                {
+                    <div class="col-md-6">
+                        <input type="image" src="@ViewBag.rootUrl@Url.Content("~/Img/Boton_PaGO.png")" name="pagoPayment" id="pagoPayment" ng-click="alert('prueba1');" />
+                    </div>
+                }
+                if (User.IsInRole("rol-recaudos-pse"))
+                {
+                    <div class="col-md-6">
+                        <input type="image" src="@ViewBag.rootUrl@Url.Content("~/Img/pse.png")" name="psePayment" id="psePayment" ng-click="alert('prueba2');" />
+                    </div>
+                }*@
+        }
+        <div class="col-md-6">
+            <input type="image" class="col-md-12" src="@ViewBag.rootUrl@Url.Content("~/Img/Boton_PaGO.png")" name="pagoPayment" id="pagoPayment" ng-click="processPaymentTc()" />
+        </div>
+        <div class="col-md-6">
+            <input type="image" class="col-md-12" src="@ViewBag.rootUrl@Url.Content("~/Img/pse.png")" name="psePayment" id="psePayment" ng-click="processPaymentPse()" />
+        </div>
+    </div>
+</div>

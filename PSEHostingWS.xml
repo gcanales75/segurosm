@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.achcolombia.com.co/PSEHostingWS" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.achcolombia.com.co/PSEHostingWS" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.achcolombia.com.co/PSEHostingWS">
+      <s:element name="createTransactionPaymentHosting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketOfficeID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="vatAmount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="serviceCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fields" type="tns:ArrayOfPSEHostingField" />
+            <s:element minOccurs="0" maxOccurs="1" name="entity_url" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPSEHostingField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PSEHostingField" nillable="true" type="tns:PSEHostingField" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PSEHostingField">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Value" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PSEHostingCreateTransactionReturn">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:PSEHostingCreateTransactionReturnCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentIdentifier" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PSEHostingCreateTransactionReturnCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="ERRORS" />
+          <s:enumeration value="OK" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="createTransactionPaymentHostingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createTransactionPaymentHostingResult" type="tns:PSEHostingCreateTransactionReturn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createTransactionPaymentMulticreditHosting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketOfficeID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="vatAmount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="serviceCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fields" type="tns:ArrayOfPSEHostingField" />
+            <s:element minOccurs="0" maxOccurs="1" name="memberservices" type="tns:ArrayOfPSEHostingMemberService" />
+            <s:element minOccurs="0" maxOccurs="1" name="entity_url" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPSEHostingMemberService">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PSEHostingMemberService" nillable="true" type="tns:PSEHostingMemberService" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PSEHostingMemberService">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VATAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identification" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="createTransactionPaymentMulticreditHostingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createTransactionPaymentMulticreditHostingResult" type="tns:PSEHostingCreateTransactionReturn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getTransactionInformationHosting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketOfficeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PSEHostingTransactionInformationReturn">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:PSEHostingTransactionInformationReturnCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="State" type="tns:PSEHostingTransactionState" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VATAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BankName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ServiceCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TrazabilityCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CycleNumber" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference3" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SolicitedDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="PSEHostingTransactionInformationReturnCode">
+        <s:restriction base="s:string">
+          <s:enumeration value="INVALIDTICKETORPASSWORD" />
+          <s:enumeration value="INVALIDPAYMENTID" />
+          <s:enumeration value="ERRORS" />
+          <s:enumeration value="OK" />
+        </s:restriction>
+      </s:simpleType>
+      <s:simpleType name="PSEHostingTransactionState">
+        <s:restriction base="s:string">
+          <s:enumeration value="CREATED" />
+          <s:enumeration value="PENDING" />
+          <s:enumeration value="FAILED" />
+          <s:enumeration value="NOT_AUTHORIZED" />
+          <s:enumeration value="OK" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="getTransactionInformationHostingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getTransactionInformationHostingResult" type="tns:PSEHostingTransactionInformationReturn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createCreditCardPaymentHosting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketOfficeID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="amount" type="s:decimal" />
+            <s:element minOccurs="1" maxOccurs="1" name="vatAmount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentDescription" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber1" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="referenceNumber3" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="providerCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fields" type="tns:ArrayOfPSEHostingField" />
+            <s:element minOccurs="0" maxOccurs="1" name="entity_url" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="createCreditCardPaymentHostingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="createCreditCardPaymentHostingResult" type="tns:PSEHostingCreateTransactionReturn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="getCreditCardInformationHosting">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ticketOfficeID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PSEHostingCreditCardInformationReturn">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:PSEHostingTransactionInformationReturnCode" />
+          <s:element minOccurs="0" maxOccurs="1" name="ErrorMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="State" type="tns:PSEHostingTransactionState" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Amount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="VATAmount" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="PaymentDescription" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CreditCardCUS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProviderCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ProviderName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AuthorizationOrErrorCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Cardtype" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Reference3" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SolicitedDate" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="getCreditCardInformationHostingResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="getCreditCardInformationHostingResult" type="tns:PSEHostingCreditCardInformationReturn" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="createTransactionPaymentHostingSoapIn">
+    <wsdl:part name="parameters" element="tns:createTransactionPaymentHosting" />
+  </wsdl:message>
+  <wsdl:message name="createTransactionPaymentHostingSoapOut">
+    <wsdl:part name="parameters" element="tns:createTransactionPaymentHostingResponse" />
+  </wsdl:message>
+  <wsdl:message name="createTransactionPaymentMulticreditHostingSoapIn">
+    <wsdl:part name="parameters" element="tns:createTransactionPaymentMulticreditHosting" />
+  </wsdl:message>
+  <wsdl:message name="createTransactionPaymentMulticreditHostingSoapOut">
+    <wsdl:part name="parameters" element="tns:createTransactionPaymentMulticreditHostingResponse" />
+  </wsdl:message>
+  <wsdl:message name="getTransactionInformationHostingSoapIn">
+    <wsdl:part name="parameters" element="tns:getTransactionInformationHosting" />
+  </wsdl:message>
+  <wsdl:message name="getTransactionInformationHostingSoapOut">
+    <wsdl:part name="parameters" element="tns:getTransactionInformationHostingResponse" />
+  </wsdl:message>
+  <wsdl:message name="createCreditCardPaymentHostingSoapIn">
+    <wsdl:part name="parameters" element="tns:createCreditCardPaymentHosting" />
+  </wsdl:message>
+  <wsdl:message name="createCreditCardPaymentHostingSoapOut">
+    <wsdl:part name="parameters" element="tns:createCreditCardPaymentHostingResponse" />
+  </wsdl:message>
+  <wsdl:message name="getCreditCardInformationHostingSoapIn">
+    <wsdl:part name="parameters" element="tns:getCreditCardInformationHosting" />
+  </wsdl:message>
+  <wsdl:message name="getCreditCardInformationHostingSoapOut">
+    <wsdl:part name="parameters" element="tns:getCreditCardInformationHostingResponse" />
+  </wsdl:message>
+  <wsdl:portType name="PSEHostingWSSoap">
+    <wsdl:operation name="createTransactionPaymentHosting">
+      <wsdl:input message="tns:createTransactionPaymentHostingSoapIn" />
+      <wsdl:output message="tns:createTransactionPaymentHostingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createTransactionPaymentMulticreditHosting">
+      <wsdl:input message="tns:createTransactionPaymentMulticreditHostingSoapIn" />
+      <wsdl:output message="tns:createTransactionPaymentMulticreditHostingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionInformationHosting">
+      <wsdl:input message="tns:getTransactionInformationHostingSoapIn" />
+      <wsdl:output message="tns:getTransactionInformationHostingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="createCreditCardPaymentHosting">
+      <wsdl:input message="tns:createCreditCardPaymentHostingSoapIn" />
+      <wsdl:output message="tns:createCreditCardPaymentHostingSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCreditCardInformationHosting">
+      <wsdl:input message="tns:getCreditCardInformationHostingSoapIn" />
+      <wsdl:output message="tns:getCreditCardInformationHostingSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PSEHostingWSSoap" type="tns:PSEHostingWSSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="createTransactionPaymentHosting">
+      <soap:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/createTransactionPaymentHosting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTransactionPaymentMulticreditHosting">
+      <soap:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/createTransactionPaymentMulticreditHosting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionInformationHosting">
+      <soap:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/getTransactionInformationHosting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createCreditCardPaymentHosting">
+      <soap:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/createCreditCardPaymentHosting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCreditCardInformationHosting">
+      <soap:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/getCreditCardInformationHosting" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PSEHostingWSSoap12" type="tns:PSEHostingWSSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="createTransactionPaymentHosting">
+      <soap12:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/createTransactionPaymentHosting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createTransactionPaymentMulticreditHosting">
+      <soap12:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/createTransactionPaymentMulticreditHosting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionInformationHosting">
+      <soap12:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/getTransactionInformationHosting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="createCreditCardPaymentHosting">
+      <soap12:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/createCreditCardPaymentHosting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCreditCardInformationHosting">
+      <soap12:operation soapAction="http://www.achcolombia.com.co/PSEHostingWS/getCreditCardInformationHosting" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PSEHostingWS">
+    <wsdl:port name="PSEHostingWSSoap" binding="tns:PSEHostingWSSoap">
+      <soap:address location="https://200.1.124.65/PSEHostingWebServices/PSEHostingWS.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PSEHostingWSSoap12" binding="tns:PSEHostingWSSoap12">
+      <soap12:address location="https://200.1.124.65/PSEHostingWebServices/PSEHostingWS.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

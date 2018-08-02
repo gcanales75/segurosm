@@ -1,0 +1,45 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="userName">Nombre de Usuario</label>
+                <input type="text" name="userName" id="userName" ng-model="nUser.UserName" placeholder="Escriba el Nombre de Usuario" />
+            </div>
+            <div class="col-md-6">
+                <label for="appClient">App Cliente</label>
+                <select id="appClient" name="appClient" ng-model="nUser.ClientId" ng-change="changeApp()">
+                    <option value="">Seleccione una Aplicación</option>
+                    <option ng-repeat="app in lstClients" value="{{app.Name}}">{{app.Name}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <strong>Roles Disponibles</strong>
+                <div class="list-group" style="height: 200px; overflow-y:auto; border:1px solid #000;">
+                    <a class="list-group-item" ng-repeat="rol in lstRoles" ng-click="ItemRoleSelect($index)" ng-class="{'active':($index===indexRoleSelected)}">{{rol.Name}}</a>
+                </div>
+            </div>
+            <div class="col-md-1" style="display:flex; align-items: center; justify-content: center; height:200px;">
+                <div>
+                    <button class="btn btn-primary btn-lg" id="addRole" name="addRole" ng-click="addRole()">>></button><br/>
+                    <button class="btn btn-primary btn-lg" id="deleteRole" name="deleteRole" ng-click="removeRole()"><<</button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <strong>Roles de Usuario</strong>
+                <div class="list-group" style="height: 200px; overflow-y:auto; border:1px solid #000;">
+                    <a class="list-group-item" ng-repeat="rol in nUser.RolesUser" ng-click="indexRoleUserSelect($index)" ng-class="{'active':($index===indexRoleUserSelected)}">{{rol.Name}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="bloqueado">Bloqueado</label>
+                <input type="checkbox" id="bloqueado" name="bloqueado" ng-model="nUser.LockoutEnabled" />
+                <label for="resetToken">Reset Token</label>
+                <input type="checkbox" id="resetToken" name="resetToken" ng-model="nUser.ResetToken" />
+            </div>
+        </div>
+    </div>
+</div>

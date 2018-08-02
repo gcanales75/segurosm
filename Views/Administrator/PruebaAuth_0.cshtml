@@ -1,0 +1,94 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PruebaAuth</title>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="543860615475-fl1h956qcpj0jjq7ak6883g5oluljs9u.apps.googleusercontent.com">
+    <meta name="google-signin-cookiepolicy" content="single_host_origin">
+    <meta name="google-signin-scope" content="profile email">
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+</head>
+<body>
+    <div id="login" style="display:block;">
+        <input type="email" id="email" placeholder="Ingrese su email" />
+        <input type="password" id="password" placeholder="Ingrese su password" />
+        <button type="button" id="enviar">Enviar</button>
+        <button type="button" id="loginWithGoogle">Loguearse con Google</button>
+    </div>
+    <div id="logout" style="display:none">
+        <button type="button" id="logoutBtn">Salir</button>
+    </div>
+    <!--<div class="g-signin2" data-onsuccess="onSignIn"></div>-->
+    <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+    <script>
+        $(document).ready(function () {
+            var config = {
+                apiKey: "AIzaSyDajWGJNptevjYORuS9Bg0hpaZkvMYOm00",
+                authDomain: "adminpaymentserver.firebaseapp.com",
+                databaseURL: "https://adminpaymentserver.firebaseio.com",
+                projectId: "adminpaymentserver",
+                storageBucket: "adminpaymentserver.appspot.com",
+                messagingSenderId: "805902455100"
+            };
+            var firebaseApp = firebase.initializeApp(config);
+            var provider = new firebase.auth.GoogleAuthProvider();
+            $("#loginWithGoogle").click(function () {
+                firebase.auth()
+                    .signInWithPopup(provider)
+                    .then(function (result) {
+                        var token = result.credential.accessToken;
+                        var user = result.user;
+                        console.log("Se ha ingresado correctamente");
+                        $("#login").css('display', 'none');
+                        $("#logout").css('display', 'block');
+                    }).catch(function (error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        var email = error.email;
+                        var credential = error.credential;
+                        console.error(errorMessage);
+                    });
+            });
+
+            $("#enviar").click(function () {
+                firebaseApp.auth()
+                    .signInWithEmailAndPassword($("#email").val(), $("#password").val())
+                    .then(function (response) {
+                        console.log("Se ha ingresado correctamente");
+                        $("#login").css('display', 'none');
+                        $("#logout").css('display', 'block');
+                    })
+                    .catch(function (error) {
+                        var errorCode = error.code;
+                        var errorMessage = error.message;
+                        console.error(errorMessage);
+                    });
+            });
+
+            $("#logoutBtn").click(function () {
+                firebaseApp.auth().signOut().then(function () {
+                    $("#login").css('display', 'block');
+                    $("#logout").css('display', 'none');
+                }).catch(function (error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error(errorMessage);
+                });
+            });
+        });
+
+    </script>
+</body>
+</html>
